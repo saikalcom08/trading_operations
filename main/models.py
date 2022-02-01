@@ -75,7 +75,10 @@ class Product(models.Model):
 
 class PriceHistory(models.Model):
     product = models.ForeignKey(
-        Product, verbose_name=_("Product"), on_delete=models.CASCADE
+        Product,
+        verbose_name=_("Product"),
+        related_name="prices",
+        on_delete=models.CASCADE,
     )
     price = models.DecimalField(_("Price"), max_digits=5, decimal_places=2)
     date_from = models.DateField(
@@ -89,7 +92,7 @@ class PriceHistory(models.Model):
         return str(self.price)
 
 
-class Operations(models.Model):
+class Operation(models.Model):
     firm = models.ForeignKey(
         Firm, verbose_name=_("Firm"), on_delete=models.CASCADE
     )
@@ -100,5 +103,5 @@ class Operations(models.Model):
     created_at = models.DateTimeField(_("Created at"), auto_now_add=True)
 
     class Meta:
-        verbose_name = _("Operations")
-        verbose_name_plural = _("Operationss")
+        verbose_name = _("Operation")
+        verbose_name_plural = _("Operations")
